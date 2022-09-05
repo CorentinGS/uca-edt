@@ -5,7 +5,10 @@ type StudentJSON struct {
 	Courses map[string]string
 }
 
-type StudentEDT struct {
-	UUID    string    `json:"uuid"`
-	Courses CourseEDT `json:"courses"`
+type StudentEDT map[string][]CourseEDT
+
+func (s StudentEDT) Print(uuid string) {
+	for _, course := range s[uuid] {
+		course.Print()
+	}
 }

@@ -13,13 +13,13 @@ func parseEdtJSON(fileName string) *DataEdtJSON {
 	// Open the file
 	file, err := os.ReadFile(fileName)
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 
 	// Read the file
 	err = sonic.Unmarshal(file, &data)
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 
 	return data
@@ -31,13 +31,13 @@ func parseStudentJSON(fileName string) *DataStudentJSON {
 	// Open the file
 	file, err := os.ReadFile(fileName)
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 
 	// Read the file
 	err = sonic.Unmarshal(file, &data)
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 
 	return data
