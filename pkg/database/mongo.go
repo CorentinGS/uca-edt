@@ -11,15 +11,13 @@ import (
 // MongoInstance contains the Mongo client and database objects
 type MongoInstance struct {
 	Client *mongo.Client
-	Db     *mongo.Database
+	DB     *mongo.Database
 }
 
 var Mg MongoInstance
 
-func Connect(mongoUrl string) error {
-
-	// Set client options
-	clientOptions := options.Client().ApplyURI(mongoUrl)
+func Connect(mongoURL string) error { // Set client options
+	clientOptions := options.Client().ApplyURI(mongoURL)
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 	// Connect to MongoDB
@@ -36,9 +34,9 @@ func Connect(mongoUrl string) error {
 
 	fmt.Println("Connected to mongoDB !")
 	// get collection as ref
-	db := client.Database("commandante")
+	db := client.Database("edt")
 
-	Mg = MongoInstance{Client: client, Db: db}
+	Mg = MongoInstance{Client: client, DB: db}
 
 	return nil
 }
