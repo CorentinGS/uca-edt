@@ -1,31 +1,23 @@
 package parsing
 
 import (
-	"encoding/json"
+	"github.com/bytedance/sonic"
 	"github.com/corentings/uca-edt/pkg/models"
 	"log"
 	"os"
 )
 
-func Parse() {
-	data := parseJson()
-
-	edt := parseEdt(*data)
-
-	edt["MMAG"].String()
-}
-
-func parseJson() *map[string]map[string][]models.Course {
-	data := new(map[string]map[string][]models.Course)
+func parseEdtJSON(fileName string) *DataEdtJSON {
+	data := new(DataEdtJSON)
 
 	// Open the file
-	file, err := os.ReadFile("parsed.json")
+	file, err := os.ReadFile(fileName)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Read the file
-	err = json.Unmarshal(file, &data)
+	err = sonic.Unmarshal(file, &data)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -33,8 +25,39 @@ func parseJson() *map[string]map[string][]models.Course {
 	return data
 }
 
-func parseEdt(data map[string]map[string][]models.Course) map[string]models.CourseData {
-	edt := map[string]models.CourseData{}
+func parseStudentJSON(fileName string) *DataStudentJSON {
+	data := new(DataStudentJSON)
+
+	// Open the file
+	file, err := os.ReadFile(fileName)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Read the file
+	err = sonic.Unmarshal(file, &data)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return data
+}
+
+func parseStudent(data DataStudentJSON) *[]models.StudentJSON {
+	students := new([]models.StudentJSON)
+
+	for key, value := range data {
+		*students = append(*students, models.StudentJSON{
+			UUID:    key,
+			Courses: value,
+		})
+	}
+
+	return students
+}
+
+func parseEdt(data DataEdtJSON) *CourseEdt {
+	edt := CourseEdt{}
 
 	for key, value := range data {
 		for key2, value2 := range value {
@@ -46,6 +69,8 @@ func parseEdt(data map[string]map[string][]models.Course) map[string]models.Cour
 						Salle:    course.Salle,
 						Unparsed: course.Unparsed,
 						Groupe:   course.Group,
+						Name:     course.Name,
+						Type:     course.Type,
 					})
 					edt[course.Name] = entry
 				} else {
@@ -57,6 +82,8 @@ func parseEdt(data map[string]map[string][]models.Course) map[string]models.Cour
 							Salle:    course.Salle,
 							Unparsed: course.Unparsed,
 							Groupe:   course.Group,
+							Name:     course.Name,
+							Type:     course.Type,
 						},
 						},
 					}
@@ -64,5 +91,5 @@ func parseEdt(data map[string]map[string][]models.Course) map[string]models.Cour
 			}
 		}
 	}
-	return edt
+	return &edt
 }
