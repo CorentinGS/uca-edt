@@ -3,8 +3,11 @@ package database
 import (
 	"context"
 	"fmt"
+	"github.com/corentings/uca-edt/pkg/models"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"log"
 	"time"
 )
 
@@ -39,4 +42,37 @@ func Connect(mongoURL string) error { // Set client options
 	Mg = MongoInstance{Client: client, DB: db}
 
 	return nil
+}
+
+func GetCollection(name string) *mongo.Collection {
+	return Mg.DB.Collection(name)
+}
+
+func StoreEdt(edt models.StudentEDT) {
+	collection := GetCollection("edt")
+
+	fmt.Printf("Storing %d edt\n", len(edt))
+
+	for index, studentEDT := range edt {
+
+		_, err := collection.InsertOne(context.Background(), bson.M{"_id": index, "edt": studentEDT})
+		if err != nil {
+			log.Printf("Error while storing student edt: %v", err)
+			continue
+		}
+	}
+}
+
+func GetEdt(uuid string) bson.M {
+	collection := GetCollection("edt")
+
+	var result bson.M
+
+	err := collection.FindOne(context.Background(), bson.M{"_id": uuid}).Decode(&result)
+	if err != nil {
+		log.Printf("Error while getting student edt: %v", err)
+		return nil
+	}
+
+	return result
 }

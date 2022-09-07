@@ -2,6 +2,7 @@ package routes
 
 import (
 	"github.com/bytedance/sonic"
+	"github.com/corentings/uca-edt/app/controllers"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cache"
 	"github.com/gofiber/fiber/v2/middleware/compress"
@@ -41,6 +42,8 @@ func New() *fiber.App {
 	api.Get("/", func(c *fiber.Ctx) error {
 		return fiber.NewError(fiber.StatusForbidden, "This is not a valid route") // Custom error
 	})
+
+	api.Get("/edt/:id", controllers.GetStudentEDT)
 
 	return app
 }

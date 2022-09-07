@@ -29,13 +29,13 @@ func (c CourseData) Print() {
 }
 
 type CourseEDT struct {
-	Day      string `json:"day"`
-	Hour     string `json:"hour"`
-	Salle    string `json:"salle"`
-	Unparsed string `json:"unparsed"`
-	Groupe   string `json:"groupe"`
-	Type     string `json:"type"`
-	Name     string `json:"name"`
+	Day      string `json:"day" bson:"day"`
+	Hour     string `json:"hour" bson:"hour"`
+	Salle    string `json:"salle" bson:"salle"`
+	Unparsed string `json:"unparsed" bson:"unparsed"`
+	Groupe   string `json:"groupe" bson:"groupe"`
+	Type     string `json:"type" bson:"type"`
+	Name     string `json:"name" bson:"name"`
 }
 
 func (c CourseEDT) Print() {

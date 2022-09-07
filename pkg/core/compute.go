@@ -1,7 +1,7 @@
 package core
 
 import (
-	"fmt"
+	"github.com/corentings/uca-edt/pkg/database"
 	"github.com/corentings/uca-edt/pkg/models"
 	"github.com/corentings/uca-edt/pkg/parsing"
 	"sync"
@@ -10,76 +10,21 @@ import (
 var courseEdt parsing.CourseEdt
 
 func ComputeStudentEDT() {
-	students := []models.StudentJSON{
-		{
-			UUID: "1",
-			Courses: map[string]string{
-				"MMAG":   "2",
-				"MF":     "1",
-				"Chimie": "1",
-			},
-		},
-		{
-			UUID: "2",
-			Courses: map[string]string{
-				"MMAG":   "1",
-				"MF":     "2",
-				"Chimie": "2",
-			},
-		},
-		{
-			UUID: "3",
-			Courses: map[string]string{
-				"MMAG":   "1",
-				"MF":     "2",
-				"Chimie": "2",
-			},
-		},
-		{
-			UUID: "4",
-			Courses: map[string]string{
-				"MMAG":   "1",
-				"MF":     "2",
-				"Chimie": "2",
-			},
-		},
-		{
-			UUID: "5",
-			Courses: map[string]string{
-				"MMAG":   "1",
-				"MF":     "2",
-				"Chimie": "2",
-			},
-		},
-		{
-			UUID: "6",
-			Courses: map[string]string{
-				"MMAG":   "1",
-				"MF":     "2",
-				"Chimie": "2",
-			},
-		},
-		{
-			UUID: "7",
-			Courses: map[string]string{
-				"MMAG":   "1",
-				"MF":     "2",
-				"Chimie": "2",
-			},
-		},
-		{
-			UUID: "8",
-			Courses: map[string]string{
-				"MMAG":   "1",
-				"MF":     "2",
-				"Chimie": "2",
-			},
-		},
-	}
+	students := parsing.GetStudents()
 
 	edt := CreateStudentsEDT(students)
-	fmt.Println(len(edt))
-	edt.Print("1")
+
+	database.StoreEdt(edt)
+}
+
+func GetAllCourses() []string {
+	courseEdt = parsing.GetCourseEdt()
+	var courses []string
+	for index, _ := range courseEdt {
+		courses = append(courses, index)
+	}
+
+	return courses
 }
 
 func ComputeStudent(student models.StudentJSON) []models.CourseEDT {
