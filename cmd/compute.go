@@ -26,7 +26,6 @@ var computeCmd = &cobra.Command{
 		}
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		// TODO
 		fmt.Printf("Compute the edt with the group file %s and the edt file %s", computeGFile, computeEFile)
 		core.ComputeStudentEDT(computeGFile, computeEFile)
 	},
