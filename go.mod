@@ -6,7 +6,7 @@ require (
 	github.com/bytedance/sonic v1.4.0
 	github.com/gofiber/fiber/v2 v2.37.0
 	github.com/joho/godotenv v1.4.0
-	github.com/lithammer/fuzzysearch v1.1.5
+	github.com/spf13/cobra v1.5.0
 	go.mongodb.org/mongo-driver v1.10.1
 )
 
@@ -14,10 +14,12 @@ require (
 	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20211019084208-fb5309c8db06 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
+	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/klauspost/compress v1.15.0 // indirect
 	github.com/klauspost/cpuid/v2 v2.0.9 // indirect
 	github.com/montanaflynn/stats v0.0.0-20171201202039-1bf9dbcd8cbe // indirect
 	github.com/pkg/errors v0.9.1 // indirect
+	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.39.0 // indirect

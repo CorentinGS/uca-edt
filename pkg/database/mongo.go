@@ -17,7 +17,10 @@ type MongoInstance struct {
 	DB     *mongo.Database
 }
 
-var Mg MongoInstance
+var (
+	MongoURL string
+	Mg       MongoInstance
+)
 
 func Connect(mongoURL string) error { // Set client options
 	clientOptions := options.Client().ApplyURI(mongoURL)
@@ -54,8 +57,7 @@ func StoreEdt(edt models.StudentEDT) {
 	fmt.Printf("Storing %d edt\n", len(edt))
 
 	for index, studentEDT := range edt {
-
-		_, err := collection.InsertOne(context.Background(), bson.M{"_id": index, "edt": studentEDT})
+		_, err := collection.UpdateOne(context.Background(), bson.M{"_id": index}, bson.D{{"$set", bson.M{"_id": index, "edt": studentEDT}}}, options.Update().SetUpsert(true))
 		if err != nil {
 			log.Printf("Error while storing student edt: %v", err)
 			continue

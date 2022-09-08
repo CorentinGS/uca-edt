@@ -9,22 +9,13 @@ import (
 
 var courseEdt parsing.CourseEdt
 
-func ComputeStudentEDT() {
-	students := parsing.GetStudents()
+func ComputeStudentEDT(studentFile string, edtFile string) {
+	students := parsing.GetStudents(studentFile)
+	courseEdt = parsing.GetCourseEdt(edtFile)
 
 	edt := CreateStudentsEDT(students)
 
 	database.StoreEdt(edt)
-}
-
-func GetAllCourses() []string {
-	courseEdt = parsing.GetCourseEdt()
-	var courses []string
-	for index, _ := range courseEdt {
-		courses = append(courses, index)
-	}
-
-	return courses
 }
 
 func ComputeStudent(student models.StudentJSON) []models.CourseEDT {
@@ -37,12 +28,10 @@ func ComputeStudent(student models.StudentJSON) []models.CourseEDT {
 			}
 		}
 	}
-
 	return courses
 }
 
 func CreateStudentsEDT(students []models.StudentJSON) models.StudentEDT {
-	courseEdt = parsing.GetCourseEdt()
 
 	type studentEDTChan struct {
 		UUID string `json:"uuid"`
