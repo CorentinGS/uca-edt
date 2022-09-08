@@ -12,8 +12,9 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "uca-edt",
-	Short: "uca-edt is a CLI to manage the UCA EDT",
+	Use:     "uca-edt",
+	Version: "0.1.0",
+	Short:   "uca-edt is a CLI to manage the UCA EDT",
 	PreRun: func(cmd *cobra.Command, args []string) {
 		// Load var from .env file
 		utils.LoadVar()
@@ -25,7 +26,7 @@ var rootCmd = &cobra.Command{
 		}
 
 		defer func() {
-			fmt.Println("Disconnect")
+			fmt.Println("Disconnected from the database")
 			err := database.Mg.Client.Disconnect(context.TODO())
 			if err != nil {
 				return

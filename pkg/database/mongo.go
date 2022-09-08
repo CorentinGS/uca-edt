@@ -54,8 +54,6 @@ func GetCollection(name string) *mongo.Collection {
 func StoreEdt(edt models.StudentEDT) {
 	collection := GetCollection("edt")
 
-	fmt.Printf("Storing %d edt\n", len(edt))
-
 	for index, studentEDT := range edt {
 		_, err := collection.UpdateOne(context.Background(), bson.M{"_id": index}, bson.D{{"$set", bson.M{"_id": index, "edt": studentEDT}}}, options.Update().SetUpsert(true))
 		if err != nil {
@@ -65,7 +63,7 @@ func StoreEdt(edt models.StudentEDT) {
 	}
 }
 
-func GetEdt(uuid string) bson.M {
+func GetEdt(uuid string) (bson.M, error) {
 	collection := GetCollection("edt")
 
 	var result bson.M
@@ -73,8 +71,8 @@ func GetEdt(uuid string) bson.M {
 	err := collection.FindOne(context.Background(), bson.M{"_id": uuid}).Decode(&result)
 	if err != nil {
 		log.Printf("Error while getting student edt: %v", err)
-		return nil
+		return nil, err
 	}
 
-	return result
+	return result, nil
 }

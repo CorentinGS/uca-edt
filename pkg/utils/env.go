@@ -7,6 +7,7 @@ import (
 	"os"
 )
 
+// LoadVar loads the var from the .env file
 func LoadVar() {
 	// Load the .env file
 	err := godotenv.Load()
