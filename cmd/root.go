@@ -13,7 +13,7 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:     "uca-edt",
-	Version: "0.1.0",
+	Version: "0.1.2",
 	Short:   "uca-edt is a CLI to manage the UCA EDT",
 	PreRun: func(cmd *cobra.Command, args []string) {
 		// Load var from .env file
@@ -51,11 +51,12 @@ func initFlags() {
 	}
 }
 
+// Execute executes the root command. It is called by main.main().
 func Execute() {
-	initFlags()
-	rootCmd.AddCommand(computeCmd)
+	initFlags()                    // Initialize the flags
+	rootCmd.AddCommand(computeCmd) // Add the compute command
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		log.Println(err) // Print the error
+		os.Exit(1)       // Exit with error
 	}
 }

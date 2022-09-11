@@ -8,6 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
+// New creates a new fiber app with the routes and middlewares
 func New() *fiber.App {
 	// Create new app
 	app := fiber.New(
@@ -36,6 +37,7 @@ func New() *fiber.App {
 		return fiber.NewError(fiber.StatusForbidden, "This is not a valid route") // Custom error
 	})
 
+	// Edt routes
 	api.Get("/edt/:id", controllers.GetStudentEDT) // Get student edt
 
 	return app

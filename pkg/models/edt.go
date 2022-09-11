@@ -45,6 +45,7 @@ type CourseEDT struct {
 	Name     string `json:"name" bson:"name"`         // Name of the course
 }
 
+// Print prints the course's EDT
 func (c CourseEDT) Print() {
 	fmt.Printf("Course: %s\n", c.Name)
 	unparsed := strings.ReplaceAll(c.Unparsed, "\n", " ")
