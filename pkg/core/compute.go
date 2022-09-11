@@ -28,7 +28,7 @@ func ComputeStudent(student models.StudentJSON) []models.CourseEDT {
 		// Get the course data and classes
 		for _, class := range courseEdt[key].CourseEDT {
 			// If the class group is the same as the student's class group or if it's a CM
-			if class.Groupe == value || class.Type == "CM" && class.Groupe == "" {
+			if class.Groupe == value || class.Type == "CM" && class.Groupe == "" || class.Groupe == "0" {
 				// Add the class to the list of the courses of the student
 				courses = append(courses, class)
 			}
