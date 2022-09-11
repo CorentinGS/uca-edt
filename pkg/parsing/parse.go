@@ -7,40 +7,19 @@ import (
 	"os"
 )
 
-func parseEdtJSON(fileName string) *DataEdtJSON {
-	data := new(DataEdtJSON) // Create a new DataEdtJSON
-
+func parseJSON[T DataEdtJSON | DataStudentJSON](fileName string, data *T) error {
 	// Open the file
 	file, err := os.ReadFile(fileName)
 	if err != nil {
 		log.Panic(err)
 	}
-
 	// Read the file
 	err = sonic.Unmarshal(file, &data)
 	if err != nil {
-		log.Panic(err)
+		return err
 	}
 
-	return data
-}
-
-func parseStudentJSON(fileName string) *DataStudentJSON {
-	data := new(DataStudentJSON) // Create a new DataStudentJSON
-
-	// Open the file
-	file, err := os.ReadFile(fileName)
-	if err != nil {
-		log.Panic(err)
-	}
-
-	// Read the file
-	err = sonic.Unmarshal(file, &data)
-	if err != nil {
-		log.Panic(err)
-	}
-
-	return data
+	return nil
 }
 
 func parseStudent(data DataStudentJSON) *[]models.StudentJSON {

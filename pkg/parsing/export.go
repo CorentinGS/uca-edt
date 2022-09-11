@@ -1,6 +1,9 @@
 package parsing
 
-import "github.com/corentings/uca-edt/pkg/models"
+import (
+	"github.com/corentings/uca-edt/pkg/models"
+	"log"
+)
 
 // CourseEdt is a type alias for a map of courses edt
 type CourseEdt map[string]models.CourseData
@@ -13,14 +16,23 @@ type DataStudentJSON map[string]map[string]string
 
 // GetCourseEdt returns a map of students edt
 func GetCourseEdt(EdtJSONFile string) CourseEdt {
-	data := parseEdtJSON(EdtJSONFile) // Parse the JSON file
-	edt := parseEdt(*data)            // Parse the data
+	data := new(DataEdtJSON) // Create a new DataEdtJSON
+	// Parse the JSON file
+	if err := parseJSON(EdtJSONFile, data); err != nil {
+		log.Panicf("Error while parsing edt JSON file: %s", err.Error())
+	}
+	edt := parseEdt(*data) // Parse the data
 	return *edt
 }
 
 // GetStudents returns a slice of students
 func GetStudents(StudentJSONFile string) []models.StudentJSON {
-	data := parseStudentJSON(StudentJSONFile) // Parse the JSON file
-	students := parseStudent(*data)           // Parse the data
+	data := new(DataStudentJSON) // Create a new DataStudentJSON
+
+	// Parse the JSON file
+	if err := parseJSON(StudentJSONFile, data); err != nil {
+		log.Panicf("Error while parsing student JSON file: %s", err.Error())
+	}
+	students := parseStudent(*data) // Parse the data
 	return *students
 }
