@@ -13,7 +13,7 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:     "uca-edt",
-	Version: "0.1.2",
+	Version: "0.1.4",
 	Short:   "uca-edt is a CLI to manage the UCA EDT",
 	PreRun: func(cmd *cobra.Command, args []string) {
 		// Load var from .env file
