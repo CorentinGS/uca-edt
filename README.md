@@ -8,6 +8,7 @@ This project needs to include the following .env file:
 
 ```
 MONGO_URL="mongodb://root:password@ip:port"
+SECURITY_KEY="your_secret_key"
 ```
 
 ## Disclaimer
