@@ -11,6 +11,19 @@ MONGO_URL="mongodb://root:password@ip:port"
 SECURITY_KEY="your_secret_key"
 ```
 
+## Admin endpoint 
+
+The admin endpoint is available at `/admin` and is protected by a basic auth. The secret key is defined in the .env file as `SECURITY_KEY`.
+To access the admin endpoint, you need to provide the key as an HTTP header: `Key: your_secret_key`.
+
+We might change this in the future to use a more secure authentication method (like JWT) but for now, this is the easiest way to do it, and it might be enough for our needs.
+If you have any suggestion, feel free to open an issue or a PR.
+
+## Use our project for your own school
+
+If you want to use our project for your own school, you can contact us. We will be happy to help you. 
+This project is open source, so you can also fork it and adapt it to your needs.
+
 ## Disclaimer
 
 This project is not affiliated with the UCA in any way. It is a personal project that I made for my own use. I am not responsible for any damage caused by the use of this project.
