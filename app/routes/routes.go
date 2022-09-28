@@ -3,6 +3,7 @@ package routes
 import (
 	"github.com/bytedance/sonic"
 	"github.com/corentings/uca-edt/app/controllers"
+	"github.com/corentings/uca-edt/app/middleware"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/compress"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -39,6 +40,14 @@ func New() *fiber.App {
 
 	// Edt routes
 	api.Get("/edt/:id", controllers.GetStudentEDT) // Get student edt
+
+	api.Get("/course/", controllers.GetCourseData) // Get course edt
+
+	admin := app.Group("/admin")
+
+	admin.Use(middleware.SecurityKeyMiddleware())
+
+	admin.Post("/edt/:id", controllers.PostStudentEDT) // Post student edt
 
 	return app
 }

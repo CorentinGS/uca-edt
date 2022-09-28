@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"github.com/corentings/uca-edt/app/middleware"
 	"github.com/corentings/uca-edt/pkg/database"
 	"github.com/joho/godotenv"
 	"log"
@@ -15,4 +16,5 @@ func LoadVar() {
 		log.Fatal("Error loading .env file")
 	}
 	database.MongoURL = os.Getenv("MONGO_URL") // Get url from env
+	middleware.SecurityKey = os.Getenv("SECURITY_KEY")
 }
