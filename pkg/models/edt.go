@@ -16,8 +16,8 @@ type Course struct {
 
 // CourseData struct
 type CourseData struct {
-	Name      string      `json:"name"` // Name of the course
-	CourseEDT []CourseEDT `json:"edt"`  // Course's EDT
+	Name      string      `json:"name" bson:"name"`      // Name of the course
+	CourseEDT []CourseEDT `json:"edt" bson:"course_edt"` // Course's EDT
 }
 
 // Print prints the course's EDT

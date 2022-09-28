@@ -40,5 +40,9 @@ func New() *fiber.App {
 	// Edt routes
 	api.Get("/edt/:id", controllers.GetStudentEDT) // Get student edt
 
+	api.Get("/course/", controllers.GetCourseData) // Get course edt
+
+	api.Post("/edt/:id", controllers.PostStudentEDT) // Post student edt
+
 	return app
 }

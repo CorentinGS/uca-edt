@@ -7,26 +7,24 @@ import (
 	"sync"
 )
 
-var courseEdt parsing.CourseEdt // courseEdt is a global variable that contains the parsed edt
-
 // ComputeStudentEDT function computes the edt of all the students
 func ComputeStudentEDT(studentFile string, edtFile string) {
 	students := parsing.GetStudents(studentFile) // Get the students
-	courseEdt = parsing.GetCourseEdt(edtFile)    // Get the parsed edt
+	courseEdt := parsing.GetCourseEdt(edtFile)   // Get the parsed edt
 
-	edt := CreateStudentsEDT(students) // Create the edt of all the students
+	edt := CreateStudentsEDT(students, courseEdt) // Create the edt of all the students
 
 	database.StoreEdt(edt) // Store the edt in the database
 }
 
 // ComputeStudent function computes the edt of a student
-func ComputeStudent(student models.StudentJSON) []models.CourseEDT {
+func ComputeStudent(student models.StudentJSON, courseEdt *parsing.CourseEdt) []models.CourseEDT {
 	var courses []models.CourseEDT // courses is the list of the courses of the student
 
 	// For each course of the student
 	for key, value := range student.Courses {
 		// Get the course data and classes
-		for _, class := range courseEdt[key].CourseEDT {
+		for _, class := range (*courseEdt)[key].CourseEDT {
 			// If the class group is the same as the student's class group or if it's a CM
 			if class.Groupe == value || class.Type == "CM" && class.Groupe == "" || class.Groupe == "0" {
 				// Add the class to the list of the courses of the student
@@ -38,7 +36,7 @@ func ComputeStudent(student models.StudentJSON) []models.CourseEDT {
 }
 
 // CreateStudentsEDT function creates the edt of a student
-func CreateStudentsEDT(students []models.StudentJSON) models.StudentEDT {
+func CreateStudentsEDT(students []models.StudentJSON, courseEdt parsing.CourseEdt) models.StudentEDT {
 	type studentEDTChan struct {
 		UUID string             `json:"uuid"` // UUID is the uuid of the student
 		EDT  []models.CourseEDT `json:"edt"`  // EDT is the edt of the student
@@ -71,7 +69,7 @@ func CreateStudentsEDT(students []models.StudentJSON) models.StudentEDT {
 				// Compute the edt of the student
 				studentEDT := studentEDTChan{
 					UUID: student.UUID,
-					EDT:  ComputeStudent(student),
+					EDT:  ComputeStudent(student, &courseEdt),
 				}
 				mutex.Lock()     // Lock the mutex
 				ch <- studentEDT // Send the edt of the student to the channel

@@ -80,3 +80,38 @@ func GetEdt(uuid string) (bson.M, error) {
 
 	return result, nil
 }
+
+func StoreCourseEdt(courseEdt map[string]models.CourseData) error {
+	collection := GetCollection("courseEdt") // get collection as ref
+
+	_, err := collection.UpdateOne(context.Background(), bson.M{"_id": "courseEdt"}, bson.D{{"$set", bson.M{"_id": "courseEdt", "courseEdt": courseEdt}}}, options.Update().SetUpsert(true)) // update or insert
+	if err != nil {
+		log.Printf("Error while storing course data: %v", err)
+		return err
+	}
+
+	return nil
+}
+
+func GetCourseData() (map[string]models.CourseData, error) {
+	collection := GetCollection("courseEdt") // get collection as ref
+
+	var result bson.M // result
+
+	courseEdt := new(map[string]models.CourseData)
+
+	err := collection.FindOne(context.Background(), bson.M{"_id": "courseEdt"}).Decode(&result) // find student edt
+	if err != nil {
+		log.Printf("Error while getting course edt: %v", err)
+		return nil, err
+	}
+
+	// convert m to s
+	bsonBytes, _ := bson.Marshal(result["courseEdt"])
+	err = bson.Unmarshal(bsonBytes, &courseEdt)
+	if err != nil {
+		return nil, err
+	}
+
+	return *courseEdt, nil
+}

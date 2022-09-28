@@ -1,6 +1,7 @@
 package parsing
 
 import (
+	"github.com/corentings/uca-edt/pkg/database"
 	"github.com/corentings/uca-edt/pkg/models"
 	"log"
 )
@@ -22,6 +23,11 @@ func GetCourseEdt(EdtJSONFile string) CourseEdt {
 		log.Panicf("Error while parsing edt JSON file: %s", err.Error())
 	}
 	edt := parseEdt(*data) // Parse the data
+
+	if err := database.StoreCourseEdt(*edt); err != nil {
+		log.Panicf("Error while storing edt: %s", err.Error())
+	} // Store the edt in the database
+
 	return *edt
 }
 
