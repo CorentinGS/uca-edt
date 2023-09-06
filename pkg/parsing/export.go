@@ -1,9 +1,10 @@
 package parsing
 
 import (
+	"log"
+
 	"github.com/corentings/uca-edt/pkg/database"
 	"github.com/corentings/uca-edt/pkg/models"
-	"log"
 )
 
 // CourseEdt is a type alias for a map of courses edt

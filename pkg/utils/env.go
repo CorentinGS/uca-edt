@@ -1,11 +1,12 @@
 package utils
 
 import (
+	"log"
+	"os"
+
 	"github.com/corentings/uca-edt/app/middleware"
 	"github.com/corentings/uca-edt/pkg/database"
 	"github.com/joho/godotenv"
-	"log"
-	"os"
 )
 
 // LoadVar loads the var from the .env file

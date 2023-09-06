@@ -2,15 +2,18 @@ package cmd
 
 import (
 	"context"
+	"log"
+
 	"github.com/corentings/uca-edt/pkg/core"
 	"github.com/corentings/uca-edt/pkg/database"
 	"github.com/corentings/uca-edt/pkg/utils"
 	"github.com/spf13/cobra"
-	"log"
 )
 
-var computeGFile string // The group file to use
-var computeEFile string // The edt file to use
+var (
+	computeGFile string // The group file to use
+	computeEFile string // The edt file to use
+)
 
 // computeCmd represents the compute command
 var computeCmd = &cobra.Command{

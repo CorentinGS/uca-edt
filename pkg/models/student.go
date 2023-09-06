@@ -2,8 +2,8 @@ package models
 
 // StudentJSON is the JSON structure of a student
 type StudentJSON struct {
-	UUID    string `json:"uuid"`
 	Courses map[string]string
+	UUID    string `json:"uuid"`
 }
 
 // StudentEDT is an alias type for a map of students edt

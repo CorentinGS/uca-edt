@@ -1,10 +1,11 @@
 package core
 
 import (
+	"sync"
+
 	"github.com/corentings/uca-edt/pkg/database"
 	"github.com/corentings/uca-edt/pkg/models"
 	"github.com/corentings/uca-edt/pkg/parsing"
-	"sync"
 )
 
 // ComputeStudentEDT function computes the edt of all the students
@@ -51,7 +52,7 @@ func CreateStudentsEDT(students []models.StudentJSON, courseEdt parsing.CourseEd
 	M := len(students) / workers // M is the number of students per worker
 
 	ch := make(chan studentEDTChan, len(students)) // Create a channel
-	var mutex = &sync.Mutex{}                      // mutex is a mutex to prevent data racing
+	mutex := &sync.Mutex{}                         // mutex is a mutex to prevent data racing
 
 	// For each worker
 	for i := 0; i < workers; i++ {

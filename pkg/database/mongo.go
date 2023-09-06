@@ -3,12 +3,13 @@ package database
 import (
 	"context"
 	"fmt"
+	"log"
+	"time"
+
 	"github.com/corentings/uca-edt/pkg/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"log"
-	"time"
 )
 
 // MongoInstance contains the Mongo client and database objects

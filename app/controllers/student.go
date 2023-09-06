@@ -1,12 +1,13 @@
 package controllers
 
 import (
+	"net/http"
+
 	"github.com/corentings/uca-edt/pkg/core"
 	"github.com/corentings/uca-edt/pkg/database"
 	"github.com/corentings/uca-edt/pkg/models"
 	"github.com/corentings/uca-edt/pkg/parsing"
 	"github.com/gofiber/fiber/v2"
-	"net/http"
 )
 
 // GetStudentEDT returns a student edt from a given UUID

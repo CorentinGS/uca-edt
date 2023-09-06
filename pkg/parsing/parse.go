@@ -1,10 +1,11 @@
 package parsing
 
 import (
-	"github.com/bytedance/sonic"
-	"github.com/corentings/uca-edt/pkg/models"
 	"log"
 	"os"
+
+	"github.com/bytedance/sonic"
+	"github.com/corentings/uca-edt/pkg/models"
 )
 
 func parseJSON[T DataEdtJSON | DataStudentJSON](fileName string, data *T) error {
@@ -64,15 +65,16 @@ func parseEdt(data DataEdtJSON) *CourseEdt {
 					// Create a new CourseData and add it to the edt
 					edt[course.Name] = models.CourseData{
 						Name: course.Name,
-						CourseEDT: []models.CourseEDT{{
-							Day:      day,
-							Hour:     hour,
-							Salle:    course.Salle,
-							Unparsed: course.Unparsed,
-							Groupe:   course.Group,
-							Name:     course.Name,
-							Type:     course.Type,
-						},
+						CourseEDT: []models.CourseEDT{
+							{
+								Day:      day,
+								Hour:     hour,
+								Salle:    course.Salle,
+								Unparsed: course.Unparsed,
+								Groupe:   course.Group,
+								Name:     course.Name,
+								Type:     course.Type,
+							},
 						},
 					}
 				}

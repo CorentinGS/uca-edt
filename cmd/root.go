@@ -3,12 +3,13 @@ package cmd
 import (
 	"context"
 	"fmt"
+	"log"
+	"os"
+
 	"github.com/corentings/uca-edt/app/routes"
 	"github.com/corentings/uca-edt/pkg/database"
 	"github.com/corentings/uca-edt/pkg/utils"
 	"github.com/spf13/cobra"
-	"log"
-	"os"
 )
 
 var rootCmd = &cobra.Command{

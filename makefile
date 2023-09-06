@@ -7,3 +7,6 @@ build_linux:
 
 build_windows:
 	GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o bin/$(NAME).exe -v && upx bin/$(NAME).exe
+
+ci:
+	./scripts/ci.sh
